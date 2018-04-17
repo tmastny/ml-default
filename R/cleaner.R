@@ -9,7 +9,6 @@ d <- d %>%
   select(default, everything())
 # ---- cleaner2
 library(rsample)
-
 default_splits <- initial_split(d, prop = 2/3)
 
 # ---- cleaner3
