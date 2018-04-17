@@ -57,7 +57,39 @@ d %>%
 
 The data looks pretty clean. All numerics without any NAs. 
 
+Next, we'll split the data into a training and test set, since that is how the paper evaluated their models. The paper doesn't specify the split percent, so we will use 33%. Even though the data is unbalanced:
+
+```{r}
+d %>%
+  group_by(default) %>%
+  summarise(count = n())
+```
+
+The paper explicitly says it created the validation set randomly, so we will avoid using stratified sampling. 
+
+```{r cleaner2, eval=FALSE}
+```
+
 Next, we'll use the `recipes` package to process our data. Many of the columns in the dataset are actually categorical variables encoded as integers. To be consistent between Python and R methods which may or may not accept categorical features, I will use recipes to dummy encode as necessary.
+
+```{r cleaner3, eval=FALSE}
+```
+
+Lastly, we'll also standardize the data set, a standard technique used in some of the study's methods such as kNN and neural networks. The study does not say whether or not this sort of data pre-processing was used, so we will include it in our testing to see whether it impacts our results.
+
+Also important: we'll use the training data to calculate the mean and standard deviation, so our testing data doesn't leak into our training.
+
+```{r cleaner4, eval=FALSE}
+```
+
+Then we will save the data as a `.csv` for future training.
+
+```{r cleaner5, eval=FALSE}
+```
+
+```{r}
+glimpse(read_csv(here("data", "train.csv")))
+```
 
 
 
