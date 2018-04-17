@@ -9,8 +9,4 @@ This project is to predict credit card defaults. The following [study](https://g
 
 The study found the following error rates based on a validation set. My goal is to see if we can improve on these results.
 
-``` r
-knitr::include_graphics("paper-error-rates.png")
-```
-
 <img src="paper-error-rates.png" width="894" />
