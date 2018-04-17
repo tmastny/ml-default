@@ -16,11 +16,27 @@ This project is to predict credit card defaults. The following [study](https://g
 
 > Yeh, I. C., & Lien, C. H. (2009). The comparisons of data mining techniques for the predictive accuracy of probability of default of credit card clients. Expert Systems with Applications, 36(2), 2473-2480
 
-The study found the following error rates based on a validation set. My goal is to see if we can improve on these results. 
+The study found the following error rates based on a validation set. My goal is to see if we can replicate and improve on these results. 
 
 ```{r echo=FALSE, out.width="500px", fig.align='center'}
 knitr::include_graphics("../paper-error-rates.png")
 ```
 
+## Cleaning
+
+### Formatting as .csv
+
+The first thing we need to due is to create a `.csv` out of the original `.xls` file type found on UCI Machine Learning [Repository](https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients). 
+
+The file is formatted with two headers, so we'll be sure to skip the first one:
+
+```{r echo=FALSE, message=FALSE}
+library(here)
+knitr::read_chunk(here("R", "to_csv.R"))
+```
+```{r to_csv, eval=FALSE}
+```
+
+This makes it more portable between systems, especially if we want to read it into Python to use Keras for deep learning. 
 
 

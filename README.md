@@ -7,7 +7,7 @@ This project is to predict credit card defaults. The following [study](https://g
 
 > Yeh, I. C., & Lien, C. H. (2009). The comparisons of data mining techniques for the predictive accuracy of probability of default of credit card clients. Expert Systems with Applications, 36(2), 2473-2480
 
-The study found the following error rates based on a validation set. My goal is to see if we can improve on these results.
+The study found the following error rates based on a validation set. My goal is to see if we can replicate and improve on these results.
 
 <img src="paper-error-rates.png" width="500px" style="display: block; margin: auto;" />
 
