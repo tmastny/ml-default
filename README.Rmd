@@ -23,3 +23,15 @@ The study found the following error rates based on a validation set. My goal is 
 knitr::include_graphics("paper-error-rates.png")
 ```
 
+One challenge with this dataset is the low rate of defaults:
+
+```{r}
+library(tidyverse)
+library(here)
+d <- read_csv(here("data", "defaults.csv"))
+d %>%
+  group_by(default) %>%
+  summarise(count = n())
+```
+
+
