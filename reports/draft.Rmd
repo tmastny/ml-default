@@ -1,0 +1,25 @@
+---
+title: "Final Project Draft"
+author: "Tim Mastny"
+date: "April 17, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = here::here())
+```
+
+# Credit Card Defaults
+
+This project is to predict credit card defaults. The following [study](https://github.com/wangzongyan/Default-of-credit-card-clients-Data-Project/blob/master/The%20comparisons%20of%20data%20mining%20techniques%20for%20the%20predictive%20accuracy%20of%20probability%20of%20default%20of%20credit%20card%20clients.pdf) was conducted on the [dataset](https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients):
+
+> Yeh, I. C., & Lien, C. H. (2009). The comparisons of data mining techniques for the predictive accuracy of probability of default of credit card clients. Expert Systems with Applications, 36(2), 2473-2480
+
+The study found the following error rates based on a validation set. My goal is to see if we can improve on these results. 
+
+```{r echo=FALSE, out.width="500px", fig.align='center'}
+knitr::include_graphics("../paper-error-rates.png")
+```
+
+
