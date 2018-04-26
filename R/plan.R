@@ -7,7 +7,7 @@ default_plan <- drake_plan(
   baked_zscore = bake_data(splits, prepped),
   model = run(def_model, default ~ ., baked_data$train, list(model = "rf")),
   model_zscore = run(def_model, default ~ ., baked_zscore$train, list(model = "rf")),
-  board(model),
-  board(model, dir = "zscore")
+  save_results(model, "orig", baked_data$test, "default"),
+  save_results(model_zscore, "zscore", baked_data$test, "default")
 )
 
