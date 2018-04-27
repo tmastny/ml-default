@@ -19,12 +19,12 @@ prep_data <- function(splits) {
 }
 
 prep_zscore <- function(splits) {
-  recipe(default ~ ., training(default_splits)) %>%
+  recipe(default ~ ., training(splits)) %>%
     step_center(all_predictors(), -SEX, -EDUCATION, -MARRIAGE) %>% 
     step_scale(all_predictors(), -SEX, -EDUCATION, -MARRIAGE) %>% 
     step_num2factor(default, SEX, EDUCATION, MARRIAGE) %>%
     step_dummy(SEX, EDUCATION, MARRIAGE) %>%
-    prep(training(default_splits))
+    prep(training(splits))
 }
 
 bake_data <- function(splits, rec) {
