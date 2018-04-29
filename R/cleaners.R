@@ -11,14 +11,15 @@ split_data <- function(data) {
   initial_split(data, prop = 2/3)
 }
 
-prep_data <- function(splits) {
-  recipe(default ~ ., training(splits)) %>%
-    step_num2factor(default, SEX, EDUCATION, MARRIAGE) %>%
-    step_dummy(SEX, EDUCATION, MARRIAGE) %>%
-    prep(training(splits))
-}
-
-prep_zscore <- function(splits) {
+prep_data <- function(splits, type) {
+  if (type == "orig") {
+    rec <- recipe(default ~ ., training(splits)) %>%
+      step_num2factor(default, SEX, EDUCATION, MARRIAGE) %>%
+      step_dummy(SEX, EDUCATION, MARRIAGE) %>%
+      prep(training(splits))
+    return(rec)
+  }
+  
   recipe(default ~ ., training(splits)) %>%
     step_center(all_predictors(), -SEX, -EDUCATION, -MARRIAGE) %>% 
     step_scale(all_predictors(), -SEX, -EDUCATION, -MARRIAGE) %>% 
