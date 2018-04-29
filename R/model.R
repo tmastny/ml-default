@@ -12,9 +12,9 @@ def_model <- function(formula, data, method = "cv", num = 5,
   )
 }
 
-save_results <- function(model, dir, test, outcome) {
+save_results <- function(model, dir, test) {
   board(model, dir = dir)
-  t <- table(test[[outcome]], predict(model, test))
+  t <- table(test$default, predict(model, test))
   b <- board()
   b[b$id == at_last(), "public"] <- sum(diag(t))/sum(t)
   saveRDS(b, "leadrboard.RDS")
