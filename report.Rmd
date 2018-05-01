@@ -1,0 +1,59 @@
+---
+title: "Report"
+author: "Tim Mastny"
+date: "4/30/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Report
+
+```{r}
+library(tidyverse)
+library(leadr)
+```
+
+
+```{r error=TRUE}
+paper_methods <- c("knn", "glm", "lda", "naive_bayes", "nnet", "rpart")
+b <- board() %>%
+  filter(model %in% paper_methods) %>%
+  mutate(error = 1 - public) %>%
+  select(model, error, dir)
+
+ggplot(b, aes(fct_reorder(model, error), error, group = dir, color = dir)) +
+  geom_line() +
+  labs(x = NULL, y = "Error Rate", color = "Type")
+```
+
+Let's compare to the original data, using the `zscore` data:
+
+```{r}
+d <- tibble(
+  model = c("knn", "glm", "lda", "naive_bayes", "nnet", "rpart"),
+  error = c(.16, .18, .26, .21, .17, .17),
+  dir = rep("paper", 6)
+)
+
+bind_rows(b, d) %>%
+  filter(dir != "orig") %>% 
+  ggplot(aes(fct_reorder(model, error), error, group = dir, color = dir)) +
+  geom_line() +
+  labs(x = NULL, y = "Error Rate", color = "Type")
+```
+
+We see substantially lower error rate in the original paper for all models except linear discriminate analysis. However, I would argue that the paper makes replication difficult for a few reasons:
+
+1. They don't the model implementations used, or even tuning parameters, if any. 
+
+2. They don't discuss look at validation percentage, or use more reliable measures of accuracy such as [repeated k-fold cross-validation](http://appliedpredictivemodeling.com/blog/2014/11/27/vpuig01pqbklmi72b8lcl3ij5hj2qm).
+
+## Model Pipeline
+
+
+
+
+

@@ -8,3 +8,6 @@ default_plan <- drake_plan(
   save_results(model_type___method__, "type__", baked_type__$test)
 )
 
+default_plan$trigger <- c(rep("any", 5), "always")
+
+
