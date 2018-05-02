@@ -8,7 +8,8 @@ unlink("models/", recursive = TRUE)
 
 rules = list(
   type__ = c("orig", "zscore"), 
-  method__ = c("knn", "glm", "lda", "naive_bayes", "nnet", "rpart")
+  method__ = c("knn", "glm", "lda", "naive_bayes", "nnet", "rpart",
+               "ranger", "gbm", "xgbTree", "C5.0")
 )
 
 evaled_plan <- evaluate_plan(
@@ -18,6 +19,12 @@ evaled_plan <- evaluate_plan(
 
 make(evaled_plan)
 
-rmarkdown::render("report.Rmd", 
-                  output_file = "report.html",
+callr::r(function() {
+  rmarkdown::render("report.Rmd", 
+                  output_dir = here::here("reports"),
+                  output_format = "all",
                   quiet = TRUE)
+})
+
+
+

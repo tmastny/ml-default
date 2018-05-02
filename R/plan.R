@@ -1,5 +1,5 @@
 default_plan <- drake_plan(
-  data = tidy_data(file_in("data/default of credit card clients.xls"))[1:500,],
+  data = tidy_data(file_in("data/default of credit card clients.xls")),
   splits = split_data(data),
   prepped = prep_data(splits, "type__"),
   baked = bake_data(splits, prepped_type__),
