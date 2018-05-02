@@ -26,5 +26,11 @@ callr::r(function() {
                   quiet = TRUE)
 })
 
+callr::r(function() {
+  rmarkdown::render("presentation.Rmd", 
+                    output_dir = here::here("reports"),
+                    output_format = "all",
+                    quiet = TRUE)
+})
 
 

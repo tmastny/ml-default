@@ -66,85 +66,25 @@ This recipe can be easily modified to standardize the data as well.
 
 ```{r}
 d %>%
-  mutate_at(c("SEX", "MARRIAGE"), as.factor) %>%
-  group_by(SEX, MARRIAGE) %>%
-  summarise(prop = sum(default)/30000) %>%
-  ggplot(aes(SEX, prop, color = MARRIAGE)) + 
-  geom_point()
+  mutate_at(c("SEX"), as.factor) %>%
+  group_by(SEX) %>%
+  summarise(prop = sum(default)/30000)
 ```
 
-Based on the empirical proportions, 
-
-
-### Formatting as .csv
-
-The first thing we need to do is to create a `.csv` out of the original `.xls` file type found on UCI Machine Learning [Repository](https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients). 
-
-The file is formatted with two headers, so we'll be sure to skip the first one:
-
-```{r echo=FALSE, message=FALSE}
-library(here)
-knitr::read_chunk(here("R", "to_csv.R"))
-```
-```{r to_csv, eval=FALSE}
-```
-
-This makes it more portable between systems, especially if we want to read it into Python to use Keras for deep learning. 
-
-### Tidying
-
-Let's take a look at our data:
-
-```{r echo=FALSE}
-knitr::read_chunk(here("R", "cleaner.R"))
-```
-```{r cleaner1}
-```
-
-```{r}
-glimpse(d)
-d %>% 
-  select_if(~any(is.na(.)))
-```
-
-The data looks pretty clean. All numerics without any NAs. 
-
-Next, we'll split the data into a training and test set, since that is how the paper evaluated their models. The paper doesn't specify the split percent, so we will use 33%. However, the outcomes are very unbalanced:
+Based on the empirical proportions, women are more likely to default. This breakdown also demonstarts the unbalanced outcomes in the data set.
 
 ```{r}
 d %>%
-  group_by(default) %>%
-  summarise(count = n())
+  mutate_at(c("EDUCATION", "MARRIAGE"), as.factor) %>%
+  group_by(EDUCATION, MARRIAGE) %>%
+  summarise(prop = sum(default)/30000) %>%
+  ggplot(aes(EDUCATION, prop, color = MARRIAGE)) + 
+  geom_point()
 ```
 
-The paper explicitly says it created the validation set randomly, so we will avoid using stratified sampling. 
+Marriage (1) seems to be more important for lower levels of education. However, there seems to be no overall trend with education and defaults.
 
-```{r cleaner2, eval=FALSE}
-```
 
-Next, we'll use the `recipes` package to process our data. Some of the columns in the dataset are actually categorical variables encoded as integers. To be consistent between Python and R methods which may or may not accept categorical features, I will use recipes to dummy encode as necessary.
-
-```{r cleaner3, eval=FALSE}
-```
-
-Lastly, we'll also standardize the data set, a standard technique used in some of the study's methods such as kNN and neural networks. The study does not say whether or not this sort of data pre-processing was used, so we will include it in our testing to see whether it impacts our results.
-
-Also important: we'll use the training data to calculate the mean and standard deviation, so our testing data doesn't leak into our training.
-
-```{r cleaner4, eval=FALSE}
-```
-
-Then we will save the data as a `.csv` for future training.
-
-```{r cleaner5, eval=FALSE}
-```
-
-```{r}
-glimpse(read_csv(here("data", "train.csv")))
-```
-```{r}
-glimpse(read_csv(here("data", "s-train.csv")))
-```
 
 ## Results
 
